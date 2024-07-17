@@ -1,0 +1,30 @@
+/* .Container{
+ display:flex;
+ height: 200px;
+ width: 200px; 
+ background-color:rgb(244, 232, 217);
+ margin: 20px;
+ padding: 20px;
+ box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+ position: relative;
+ /* border: 2px solid blue; */
+ /* */ 
+
+/* .Container_button
+{    position: absolute; */
+    /* margin-top: %; */
+    /* height: 40px;
+    font-size: small;
+    background-color: rgb(201, 201, 255); */
+    /* top: 10px; Align to the top of the .price container */
+    /* left: 0
+    padding: 5px 10px;
+} */
+
+/* .price{
+position: relative;
+height: 50px;
+width: 170px;
+background-color: dimgrey;
+padding-top: 10px;
+} */
