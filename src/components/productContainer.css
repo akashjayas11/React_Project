@@ -7,24 +7,52 @@
  padding: 20px;
  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
  position: relative;
- /* border: 2px solid blue; */
- /* */ 
+ border: 2px solid blue;
+ 
 
-/* .Container_button
-{    position: absolute; */
-    /* margin-top: %; */
-    /* height: 40px;
+.Container_button
+{    position: absolute; 
+    margin-top: 0%;
+    height: 40px;
     font-size: small;
-    background-color: rgb(201, 201, 255); */
-    /* top: 10px; Align to the top of the .price container */
-    /* left: 0
+    background-color: rgb(201, 201, 255);
+    top: 10px; Align to the top of the .price container
+    left: 0;
     padding: 5px 10px;
-} */
+}
 
-/* .price{
+.price{
 position: relative;
 height: 50px;
 width: 170px;
 background-color: dimgrey;
-padding-top: 10px;
+padding-top: 10px;s
 } */
+ *{
+
+    box-sizing: border-box;
+ }
+ .container{
+    display: flex;
+    margin-top: 7%;
+ }
+ .row{
+    margin: auto;
+ }
+ #card1{
+    background-color: beige !important;
+    margin-top: 8% !important;
+ }
+ #button-card{
+    /* float: inline-end !important;
+    align-items: end !important;
+    margin-bottom: 0% !important; */
+    position: absolute !important;
+    right: 30% !important;
+    bottom: 10% !important;
+
+
+ }
+ .card-img-top{
+    margin: 10px;
+ }

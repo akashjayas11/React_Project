@@ -31,7 +31,7 @@ const fetchProducts = async() =>{
   catch(error) {
 console.error('Error fetching products',error);  }
 }
-// };
+
 
 fetchProducts();
 
@@ -42,18 +42,18 @@ return (
 <div className=" row"> 
 
 { products.map((product) => (
-  // <div > 
-<div className="col-3  gy-3 " key ={product.id}>  
-    <div className="card shadow" style={{width: '15rem' , height:'380px'}}>
-  <img src = {product.image} style={{ height:'120px'}} className="card-img-top" alt= {product.title} />
+  
+<div className="col-3  gy-3 "  key ={product.id}>  
+    <div className="card shadow" id='card1' style={{width: '15rem' , height:'380px'}}>
+  <img src = {product.image} style={{ height:'120px', width:'190px' , padding:'5px'}}  className="card-img-top" alt= {product.title} />
   <div className="card-body" style={{width:'200px', marginLeft:'0px'}}>
     <h6 className="card-title"> {product.title}</h6>
-    <p className="card-text">${product.price}</p>
-    <a href="#" className="btn btn-primary">Add to cart</a>
+    <p className="card-text">Price <b>${product.price}</b></p>
+    <a href="#" className="btn btn-primary" id='button-card'>Add to cart</a>
   </div>
   </div>
 </div>
-// </div>
+
 ))}
 
 

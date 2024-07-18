@@ -26,7 +26,7 @@ return(
 
      <i className="bi bi-cart4"/> 
 
-     <p>{count}</p>
+     <p className={styles.counter}>{count}</p>
 
 
      {/* <UserContext.Provider value={changeCount}>
@@ -37,7 +37,7 @@ return(
 
 </div>
 
-<Temp counter={changeCount}/>
+{/* <Temp counter={changeCount}/> */}
 
 {/* <p>Hi</p> */}
 

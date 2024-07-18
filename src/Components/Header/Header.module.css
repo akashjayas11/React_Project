@@ -1,11 +1,11 @@
 .header_Container{
-    border: 1px solid;
+    border: 1px ;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-color: rgb(0, 0, 0);
+  
     height: 75px;
     position: fixed;
     top: 0px;
@@ -20,25 +20,19 @@ height: 40px;
 width:160px;
 }
 
-/* p{
-    margin-top:2000px;
 
-} */
 
 .cartIcon{
     display: flex;
     align-items: center;
     font-size: 40px;
-    /* border: 2px solid; */
     cursor: pointer;
     padding: 0px 15px;  
-    /* float:right; */
-    /* max-width: 18px; */
-    /* margin-right: 100px; */
+
 }
 
-p{
-    /* margin: 0px 0px 1px 8px; */
+ .counter{
+ 
     font-size: 12px;
     color: rgb(240, 254, 255);
     margin: 0px 0px 15px 22px;
