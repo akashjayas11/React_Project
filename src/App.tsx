@@ -1,20 +1,31 @@
-
-
 import './App.css'
-import Header from './components/Header/Header'
-import ProductContainer from './components/productContainer'
+import Header from './Components/Header/Header'
+import ProductContainer from './Components/ProductiContainer/productContainer'
+import Cart from './Components/Cart/Cart'
+import {Route, Routes} from 'react-router-dom'
+import { useEffect } from 'react'
 
 
 function App() {
 
+  useEffect(() => {
+  
+  },);
   return (
     <>
-    < div className='navbar'>
-<Header />
-</div>
-<div className='products'>
-<ProductContainer />
-</div>
+    < div className='app'>
+      <Header />
+
+      <Routes >
+
+        <Route path='/' element={<ProductContainer/>} />
+        <Route path='/cart' element={<Cart/>} />
+
+      </Routes>
+
+    </div>
+    
+
     </>
   )
 }

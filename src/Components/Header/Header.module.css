@@ -5,9 +5,8 @@
     justify-content: space-between;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-  
     height: 75px;
-    position: fixed;
+    /* position: fixed; */
     top: 0px;
     right: 0px;
     left: 0px;
@@ -29,7 +28,7 @@ width:160px;
     cursor: pointer;
     padding: 0px 15px;  
 
-}
+} 
 
  .counter{
  
