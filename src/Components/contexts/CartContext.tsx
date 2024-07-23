@@ -9,7 +9,7 @@ interface Product {
   image: string;
 }
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
 }
 type Props={

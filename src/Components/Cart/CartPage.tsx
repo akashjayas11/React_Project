@@ -1,10 +1,9 @@
-import React from 'react';
 import { useCart } from '../contexts/CartContext';
 import './CartPage.css'
+import PaymentSummary from './PaymentSummary/PaymentSummary';
 
-const CartPage: React.FC = () => {
+const CartPage= () => {
   const { cartItems, removeFromCart,addToCart } = useCart();
-  // const {cartItems, setCartItems} = useCart();
   return (
     <div className='Cart_page'>
       
@@ -39,7 +38,12 @@ const CartPage: React.FC = () => {
     ))}
   </tbody>
 </table>
-
+            <img src={item.image} className='imageContain' />-{item.title} - ${item.price} - Quantity: {item.quantity}
+            <button onClick={() => removeFromCart(item.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+      <PaymentSummary />
 
     </div>
   );
