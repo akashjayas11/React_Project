@@ -5,6 +5,7 @@
     justify-content: space-between;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    z-index: 10;
   
     height: 75px;
     position: fixed;
@@ -31,16 +32,15 @@ width:160px;
 
 }
 
- .counter{
- 
-    font-size: 12px;
-    color: rgb(240, 254, 255);
-    margin: 0px 0px 15px 22px;
-    background-color: red;
-    border: 2px solid;
-    border-radius: 15px;
-    height: auto;
-    width: auto;
-    padding: 0px 5px;
-    position: absolute;
+ .counter {
+    color: black;
+    text-decoration: none;
+
+
+}
+
+sup{
+
+    color: red;
+
 }

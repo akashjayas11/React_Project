@@ -1,22 +1,25 @@
+import './App.css';
+import React from 'react';
+import Header from './Components/Header/Header';
+import ProductContainer from './Components/productContainer';
+import { CartProvider } from './Components/contexts/CartContext';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import CartPage from './Components/Cart/CartPage';
 
-
-import './App.css'
-import Header from './components/Header/Header'
-import ProductContainer from './components/productContainer'
-
-
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-    < div className='navbar'>
-<Header />
-</div>
-<div className='products'>
-<ProductContainer />
-</div>
-    </>
-  )
-}
+    <div className="App">
+      <Router>
+        <CartProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<ProductContainer />} />
+            <Route path="/cart" element={<CartPage />} />
+          </Routes>
+        </CartProvider>
+      </Router>
+    </div>
+  );
+};
 
-export default App
+export default App;

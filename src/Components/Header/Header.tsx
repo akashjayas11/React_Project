@@ -1,48 +1,32 @@
-import {useState, createContext} from 'react'
-import  styles from './Header.module.css'
-import img from '../../assets/logo.png'
-import Temp from '../../Temp.tsx'
 
-// export const UserContext = createContext({})
+import  { useState } from 'react';
+import styles from './Header.module.css';
+import img from '../../assets/logo.png';
+import { useCart } from '../contexts/CartContext';
+import { Link } from 'react-router-dom';
 
-function Header(){
+function Header() {
+  const { cartItems } = useCart();
+  const [showCart, setShowCart] = useState(false); 
 
-    const [count, setCount] = useState(0)
+  const toggleCart = () => {
+    setShowCart(!showCart); 
+  };
 
-    function changeCount()
-    {
-      setCount((c)=>c+1)
-    }
+  return (
+    <div className={styles.header_Container}>
+      <Link to="/" >
+      <img src={img} alt="Logo" />
+      </Link>
+      <span className={styles.cartIcon} onClick={toggleCart}>
+      <Link to="/cart" className={styles.counter}>
+        <i className="bi bi-cart4"  id='basket'/>
+        <sup>{cartItems.length}</sup>
+        </Link>
+        </span>
 
-
-
-return(
-  <>
-<div className={styles.header_Container}>
-  
-  <img src={img}/>
-
-  <span className={styles.cartIcon}>
-
-     <i className="bi bi-cart4"/> 
-
-     <p className={styles.counter}>{count}</p>
-
-
-     {/* <UserContext.Provider value={changeCount}>
-           <Temp counter={changeCount}/>
-     </UserContext.Provider> */}
-     
-  </span>
-
-</div>
-
-{/* <Temp counter={changeCount}/> */}
-
-{/* <p>Hi</p> */}
-
-</>
-)
+    </div>
+  );
 }
 
-export default Header
+export default Header;
