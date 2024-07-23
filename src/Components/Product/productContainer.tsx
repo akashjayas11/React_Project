@@ -1,7 +1,7 @@
 import './productContainer.css';
 import React, { useState, useEffect } from 'react';
 
-import { useCart } from './contexts/CartContext';
+import { useCart } from '../contexts/CartContext';
 
 interface ProductProps {
   id: number;
