@@ -1,14 +1,18 @@
 import { useCart } from '../contexts/CartContext';
 import './CartPage.css'
-import PaymentSummary from './PaymentSummary/PaymentSummary';
+// import PaymentSummary from './PaymentSummary/PaymentSummary';
 
 const CartPage= () => {
   const { cartItems, removeFromCart,addToCart } = useCart();
+  
+  const calculation = (): number => {
+    return cartItems.reduce((total,item) => total + item.price * item.quantity , 0);
+   };
+
   return (
     <div className='Cart_page'>
-      
 
-<table className="table table-hover" style={{width: '60%'}}>
+<table className="table table-hover" >
   <thead className="table-dark">
   <tr>
       <th scope="col">Item</th>
@@ -29,21 +33,22 @@ const CartPage= () => {
       <td><img src={item.image} style={{width:'100px',height:'100px'}} className='imageContain' /></td>
       <td>{item.title}</td>
       <td>${item.price}</td>
-      <td><button className='btn btn-sm btn-primary' onClick={() => addToCart(item.id)}>+</button>
+      <td><button className='btn btn-sm btn-primary' onClick={() => addToCart(item)}>+</button>
       <button className='btn btn-sm btn-danger' onClick={() => removeFromCart(item.id)}>-</button>
       </td>
       <td>{item.quantity}</td>
       <td>${item.price * item.quantity}</td>
-    </tr>
-    ))}
+      </tr>
+      
+ ))}
+       <tr className='table-warning'>
+        <th colspan="6" className="text-right"> Total cost : </th>
+      <th>${calculation()}</th>
+     </tr>
   </tbody>
 </table>
-            <img src={item.image} className='imageContain' />-{item.title} - ${item.price} - Quantity: {item.quantity}
-            <button onClick={() => removeFromCart(item.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-      <PaymentSummary />
+
+      {/* <PaymentSummary /> */}
 
     </div>
   );

@@ -8,12 +8,15 @@
     z-index: 10;
   
     height: 75px;
-    position: fixed;
+    /* position: fixed; */
     top: 0px;
     right: 0px;
     left: 0px;
     padding: 0px 30px;
-    background-color: rgb(240, 254, 255);
+    background: linear-gradient(to right, #f5e388, #f5ce69, #faba4b, #fcaf29);
+    /* background-color: rgb(255, 255, 255); */
+    position: relative;
+    position: sticky;
 }
 
 .header_Container img{
@@ -41,6 +44,7 @@ width:160px;
 
 sup{
 
-    color: red;
-
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    
 }
