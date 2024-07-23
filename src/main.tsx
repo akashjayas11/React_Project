@@ -9,11 +9,13 @@ import {MyProvider} from './Contexts/ItemsContext.tsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <MyProvider>
+
     <BrowserRouter>
-      <App />
+        <MyProvider>
+          <App />
+        </MyProvider>
     </BrowserRouter>
-  </MyProvider>
+  
 )
 
 

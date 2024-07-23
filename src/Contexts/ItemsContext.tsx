@@ -1,51 +1,64 @@
-import {  ReactNode, createContext, useState, useEffect } from 'react';
+import React, {  ReactNode, createContext, useState, useEffect, useContext } from 'react'
 
 
-interface Product {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
+type Product = {
+    id: number
+    title: string
+    price: number
+    description: string
     category: string;
     image: string;
   }
 
-interface Props {
-props: ReactNode; 
+type Props = {
+children: ReactNode
 }
 
-const MyContext = createContext<Product[]>([]);
+type ContextType = {
+    // fetchData : () => Promise<void> 
+    productsdata: Product[]
+    cartItems : Product[]
+    setCartItems : React.Dispatch<React.SetStateAction<Product[]>>;
+    count : number
+    setCount : React.Dispatch<React.SetStateAction<number>>;
+}
+
+const MyContext = createContext({} as ContextType)
+
+const useProducts = () => useContext(MyContext)
 
 
-const MyProvider : React.FC<Props> = ({ props }) => {
+const MyProvider = ({ children } : Props) => {
 
-  const [data, setData] = useState<Product[]>([]);
+  const [productsdata, setData] = useState<Product[]>([])
+  const [cartItems, setCartItems] = useState<Product[]>([])
+  const [count, setCount] = useState(0)
 
   
-  const fetchData = async () => {
+  const fetchData  = async () => {
 
     try {
       const response = await fetch('https://fakestoreapi.com/products');
-      const jsonData = await response.json();
+      const jsonData = await response.json()
       setData(jsonData);
     } 
     
     catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error)
     }
-  };
+  }
 
   useEffect(() => {
 
-    fetchData(); 
+    fetchData();
 
-  }, []);
+  }, [])
 
   return (
-    <MyContext.Provider value={ data }>
-      {props}
+    <MyContext.Provider value={{productsdata, cartItems, setCartItems, count, setCount}}>
+      {children}
     </MyContext.Provider>
-  );
-};
+  )
+}
 
-export { MyProvider, MyContext };
+export { MyProvider, useProducts }

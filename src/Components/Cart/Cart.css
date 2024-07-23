@@ -1,0 +1,40 @@
+.outer{
+margin: 20px 200px 0px 50px;
+
+}
+
+.product {
+    display: flex; /* Use flexbox for layout */
+    margin-bottom: 20px; /* Space between products */
+}
+
+/* Style for the product image */
+.product-image {
+    flex: 0 0 auto; /* Allow image to grow and shrink, but not shrink below its intrinsic size */
+    margin-right: 10px; /* Space between image and details */
+}
+
+.product-image img {
+    width: 80px; /* Adjust as per your design */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Style for the product details */
+.product-details {
+    flex: 1; /* Take up remaining space */
+}
+
+.product-title {
+    font-size: 18px; /* Example styling for title */
+    margin-bottom: 5px; /* Space between title and description */
+}
+
+.product-description {
+    color: #666; /* Example styling for description */
+    margin-bottom: 10px; /* Space between description and price */
+}
+
+.product-price {
+    font-weight: bold; /* Example styling for price */
+    color: #27ae60; /* Example styling for price */
+}

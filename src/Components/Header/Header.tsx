@@ -3,24 +3,28 @@ import styles from './Header.module.css'
 import img from '../../assets/logo.png'
 import Temp from '../../Temp.tsx'
 import { Link } from 'react-router-dom'
+import { useProducts } from '../../Contexts/ItemsContext.tsx'
 
 // export const UserContext = createContext({})
 
 function Header() {
 
-  const [count, setCount] = useState(0)
+  const {count} = useProducts()
 
-  function changeCount() {
-    setCount((c) => c + 1)
-  }
+  // function changeCount() {
+  //   setCount((c) => c + 1)
+  // }
 
 
 
   return (
     <>
       <div className={styles.header_Container}>
-
+        
+        <Link to="/">
         <img src={img} />
+        </Link>
+        
 
         <span className={styles.cartIcon}>
 

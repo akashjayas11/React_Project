@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
-import { MyContext } from '../../Contexts/ItemsContext';
+import { useProducts } from '../../Contexts/ItemsContext';
 import './productContainer.css'
 
 interface Product {
@@ -11,7 +11,7 @@ interface Product {
   image: string;
 }
 
-const ProductContainer: React.FC = () => {
+const ProductContainer = () => {
   // const [products, setProducts] = useState<Product[]>([]);
 
 
@@ -39,13 +39,21 @@ const ProductContainer: React.FC = () => {
   //   fetchProducts();
 
   // }, []);
-const products = useContext(MyContext)
+
+const {productsdata, cartItems, setCartItems, setCount} = useProducts()
+
+function AddCartItems(product: Product){
+  setCartItems((c)=>[...c,product])
+  setCount((c)=>c+1)
+  // console.log(cartItems)
+}
+
   return (
 
     <div className="container">
       <div className=" row">
 
-        {products.map((product) => (
+        {productsdata.map((product) => (
 
           <div className="col-3  gy-3 " key={product.id}>
             <div className="card shadow" id='card1' style={{ width: '15rem', height: '380px' }}>
@@ -55,7 +63,8 @@ const products = useContext(MyContext)
               <div className="card-body" style={{ width: '200px', marginLeft: '0px' }}>
                 <h6 className="card-title"> {product.title}</h6>
                 <p className="card-text">Price <b>${product.price}</b></p>
-                <a href="#" className="btn btn-primary" id='button-card'>Add to cart</a>
+
+                <a onClick={()=>AddCartItems(product)} href="#" className="btn btn-primary" id='button-card'>Add to cart</a>
               </div>
 
             </div>

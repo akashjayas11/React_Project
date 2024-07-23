@@ -4,13 +4,15 @@ import ProductContainer from './Components/ProductiContainer/productContainer'
 import Cart from './Components/Cart/Cart'
 import {Route, Routes} from 'react-router-dom'
 import { useEffect } from 'react'
+import { MyProvider } from './Contexts/ItemsContext'
 
 
 function App() {
 
-  useEffect(() => {
+  // useEffect(() => {
   
-  },);
+  // },);
+
   return (
     <>
     < div className='app'>
