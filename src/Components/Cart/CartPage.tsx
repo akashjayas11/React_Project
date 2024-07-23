@@ -1,8 +1,8 @@
-import React from 'react';
 import { useCart } from '../contexts/CartContext';
 import './CartPage.css'
+import PaymentSummary from './PaymentSummary/PaymentSummary';
 
-const CartPage: React.FC = () => {
+const CartPage= () => {
   const { cartItems, removeFromCart } = useCart();
 
   return (
@@ -17,6 +17,7 @@ const CartPage: React.FC = () => {
           </li>
         ))}
       </ul>
+      <PaymentSummary />
     </div>
   );
 };
