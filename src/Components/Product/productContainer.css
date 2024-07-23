@@ -34,6 +34,7 @@ padding-top: 10px;s
  }
  .container{
     display: flex;
+    flex-direction: column;
     margin-top: 7%;
  }
  .row{
@@ -50,9 +51,14 @@ padding-top: 10px;s
     position: absolute !important;
     right: 30% !important;
     bottom: 10% !important;
-
-
  }
+
+ #button-card-quant{
+   /* position: absolute !important; */
+   /* right: 30% !important; */
+   /* bottom: 50% !important; */
+ }
+
  .card-img-top{
     margin: 10px;
  }

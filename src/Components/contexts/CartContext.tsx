@@ -12,7 +12,7 @@ interface Product {
 export interface CartItem extends Product {
   quantity: number;
 }
-type Props={
+type Props = {
 children:ReactNode
 }
 
@@ -33,7 +33,9 @@ const CartContext = createContext<CartContextType>({
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }:Props) => {
+
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
   const addToCart = (item: Product) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
 
