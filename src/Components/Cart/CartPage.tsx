@@ -5,7 +5,7 @@ import PaymentSummary from './PaymentSummary/PaymentSummary';
 const CartPage= () => {
   const { cartItems, removeFromCart,addToCart } = useCart();
   return (
-    <div className='Cart_page'>
+    <div className='Cart_page' >
       
 
 <table className="table table-hover" style={{width: '60%'}}>
@@ -29,8 +29,8 @@ const CartPage= () => {
       <td><img src={item.image} style={{width:'100px',height:'100px'}} className='imageContain' /></td>
       <td>{item.title}</td>
       <td>${item.price}</td>
-      <td><button className='btn btn-sm btn-primary' onClick={() => addToCart(item.id)}>+</button>
-      <button className='btn btn-sm btn-danger' onClick={() => removeFromCart(item.id)}>-</button>
+      <td><button className='btn btn-sm btn-primary' onClick={() => addToCart(item)}>+</button>
+      <button className='btn btn-sm btn-danger' onClick={() => removeFromCart(item)}>-</button>
       </td>
       <td>{item.quantity}</td>
       <td>${item.price * item.quantity}</td>
@@ -39,7 +39,7 @@ const CartPage= () => {
   </tbody>
 </table>
 
-      <PaymentSummary />
+      <PaymentSummary  />
 
     </div>
   );
