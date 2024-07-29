@@ -42,10 +42,10 @@ const CartPage = () => {
                 <td>${formattedPrice}</td>
                 <td>
                   <button
-                    className='btn btn-sm btn-primary me-2' onClick={() => addToCart(item)}>+</button>
+                    className='btn btn-sm btn-primary me-2' onClick={() => addToCart(item,item.id-1)}>+</button>
                     
                   <button
-                    className='btn btn-sm btn-danger'onClick={() => removeFromCart(item)}>-</button>
+                    className='btn btn-sm btn-danger'onClick={() => removeFromCart(item.id-1,item)}>-</button>
                 </td>
                 <td>{item.quantity}</td>
                 <td>${formattedTotal}</td>

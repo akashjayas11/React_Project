@@ -14,10 +14,12 @@ interface ProductProps {
 
 
 const ProductContainer = () => {
+  
   const [products, setProducts] = useState<ProductProps[]>([]);
-  const { addToCart, cartItems ,removeFromCart} = useCart(); 
-  const [buttonClicked, setButtonClicked] = useState(products.map(()=> false));
-  // const [findQuantity, setQuantity] = useState(cartItems.map((item)=> item.quantity));
+  const { addToCart, cartItems, removeFromCart, buttonClicks, buttonClicked} = useCart();
+
+  // const [buttonClicked, setButtonClicked] = useState(products.map(()=> false));
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -37,14 +39,30 @@ const ProductContainer = () => {
   }, []);
 
   const handleAddToCart = (product: ProductProps, index:number) => {
-    addToCart(product);
+    addToCart(product,index);
+    buttonClicks(index, true);
     
-    const updateButtonsClick = buttonClicked
-    updateButtonsClick[index] = true
+    // const updateButtonsClick = buttonClicked
+    // updateButtonsClick[index] = true
     
-    setButtonClicked(updateButtonsClick);
-  
+    // setButtonClicked(updateButtonsClick);
+    
+    // const cartItem = cartItems.find((item)=>
+    //   item.id===product.id)
+
+    // const quant = quantity
+    // quant[index] = cartItem==undefined ? 1: cartItem.quantity
+
+    // setQuantity(quant)
+
   }
+
+  // const findQuantity = (id:number)=>{
+   
+  //   cartItems.find()
+
+
+  // }
 
   return (
     <div>
@@ -74,15 +92,16 @@ const ProductContainer = () => {
                   <div className="row row-cols-auto">
 
                       <div className="col" >
-                      <button type="button" className="btn btn-outline-danger" style={{ '--bs-btn-padding-y': '.25rem', '--bs-btn-padding-x': '.5rem', '--bs-btn-font-size': '.75rem'} as any}>-</button>
+                      <button type="button" onClick={() => removeFromCart(index,product)} className="btn btn-outline-danger" style={{ '--bs-btn-padding-y': '.25rem', '--bs-btn-padding-x': '.5rem', '--bs-btn-font-size': '.75rem'} as any}>-</button>
                       </div>
 
                       <div className="col">
-                        {/* {cartItems.map((item)=> item.id===product.id? item.quantity:0)} */}
+                        {cartItems.find((item) => (item.id === product.id) &&(item.quantity>0) )?.quantity}
+
                       </div>
 
                       <div className="col">
-                      <button type="button" className="btn btn-outline-success" id="button-card-quant" style={{ '--bs-btn-padding-y': '.25rem', '--bs-btn-padding-x': '.5rem', '--bs-btn-font-size': '.75rem'} as any}>+</button>
+                      <button type="button" onClick={()=>addToCart(product,index)} className="btn btn-outline-success" id="button-card-quant" style={{ '--bs-btn-padding-y': '.25rem', '--bs-btn-padding-x': '.5rem', '--bs-btn-font-size': '.75rem'} as any}>+</button>
                       </div>
                   </div>
                 </div>
