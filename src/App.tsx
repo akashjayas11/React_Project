@@ -14,7 +14,6 @@ const App: React.FC = () => {
           <Header />
           <Routes>
             <Route path="/" element={<ProductContainer />} />
-
             <Route path="/cart" element={<CartPage />}  />
           </Routes>
         </CartProvider>
