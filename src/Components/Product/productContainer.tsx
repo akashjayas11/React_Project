@@ -16,7 +16,7 @@ interface ProductProps {
 
 const ProductContainer = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
-  const [buttonClicked, setButtonClicked] = useState<boolean[]>([]);
+  // const [buttonClicked, setButtonClicked] = useState<boolean[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const { addToCart, cartItems, removeFromCart, buttonClicks, buttonClicked } = useCart();
@@ -38,7 +38,7 @@ const ProductContainer = () => {
           setHasMore(false);
         } else {
           setProducts(prevProducts => [...prevProducts, ...data]);
-          setButtonClicked(prev => [...prev, ...data.map(() => false)]);
+          // setButtonClicked(prev => [...prev, ...data.map(() => false)]);
         }
       } catch (error) {
         setError('There was a problem fetching the products. Please try again later.');
@@ -62,7 +62,7 @@ const ProductContainer = () => {
     if (hasMore) {
       setTimeout(() => {
         setPage(prevPage => prevPage + 1);
-      }, 1000);
+      }, 2000);
     }
   };
 
