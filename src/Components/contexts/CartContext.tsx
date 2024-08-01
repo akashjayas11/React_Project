@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface Product {
   id: number;
@@ -14,95 +14,93 @@ export interface CartItem extends Product {
 }
 
 type Props = {
-children:ReactNode
-}
+  children: ReactNode;
+};
 
 type CartContextType = {
   cartItems: CartItem[];
-  addToCart: (item: Product, index:number) => void;
-  removeFromCart: (index:number, item: Product) => void;
+  addToCart: (item: Product, index: number) => void;
+  removeFromCart: (index: number, item: Product) => void;
   clearCart: () => void;
-  buttonClicks: (index: number, isfromAdd:boolean ) => void;
-  buttonClicked: boolean[];
-}
+  handleButtonClicks: (index: number, isFromAdd: boolean) => void;
+  buttonClickList: boolean[];
+  error: string | null;
+};
 
-export const CartContext = createContext({} as CartContextType);
+const CartContext = createContext<CartContextType>({} as CartContextType);
+
 
 export const useCart = () => useContext(CartContext);
 
-export const CartProvider = ({ children }:Props) => {
+export const CartProvider = ({ children }: Props) => {
 
+  //state varible for storing products in CART
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const a = new Array(20);
-  const [buttonClicked, setButtonClicked] = useState(a.map(()=> false));
 
-  const addToCart = (item: Product, index:number) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+  //state variable for storing boolean value to diaplay either 'Add to Cart' button (or) 'quantity increment(+) and decrement(-)' buttons
+  const [buttonClickList, setButtonClickList] = useState<boolean[]>([]);
 
-    if (existingItem) {
-      setCartItems(
-        cartItems.map((cartItem) =>
-          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        )
-      );
+  const [error, setError] = useState<string | null>(null);
+
+  //method to add products and change quantity for products in CART
+  const addToCart = (item: Product, index: number) => {
+    try {
+      setCartItems((prevCartItems) => {
+        const existingItem = prevCartItems.find((cartItem) => cartItem.id === item.id);
+
+        if (existingItem) {
+          return prevCartItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+          );
+        } else {
+          return [...prevCartItems, { ...item, quantity: 1 }];
+        }
+      });
+    } catch (e) {
+      setError('Error adding item to cart.');
     }
-    
-    else {
-      setCartItems([...cartItems, { ...item, quantity: 1 }]);
-    }
-    
   };
 
-  // const removeFromCart = (itemId: number) => {
-  //   const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-  //   setCartItems(updatedCartItems);
-  // };
 
-  const buttonClicks = (index: number, isfromAdd: boolean)=>{
+  //method to remove and decrement quantity of products in CART
+  const removeFromCart = (index: number, item: Product) => {
+
+    try {
+      setCartItems((prevCartItems) => {
+        const existingItem = prevCartItems.find((cartItem) => cartItem.id === item.id);
+
+        if (existingItem && existingItem.quantity > 1) {
+          return prevCartItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+          );
+        } else {
+          return prevCartItems.filter((cartItem) => cartItem.id !== item.id);
+        }
+      });
+
+      handleButtonClicks(index, false);
+    } 
     
-    // const Item = cartItems.find((item)=> item.id==product.id)
-        const updateButtonsClick = buttonClicked
-
-        if(isfromAdd)
-        {
-        updateButtonsClick[index] = true
-        
-        setButtonClicked(updateButtonsClick);
-        }
-
-        else
-        {
-          updateButtonsClick[index] = false
-        
-          setButtonClicked(updateButtonsClick);
-        }
-
+    catch (e) {
+      setError('Error removing item from cart.');
     }
-
-  const removeFromCart = (index:number, item: Product) => {
-
-    const quantity1 = cartItems.find((cartItem) => (cartItem.id === item.id) &&(cartItem.quantity>1) );
-
-    if(quantity1){
-    setCartItems( cartItems.map((cartItem) =>
-      cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem))
-    }
-
-    else{
-    const updatedCartItems = cartItems.filter((cartitem) => cartitem.id !== item.id );
-     setCartItems(updatedCartItems);
-     buttonClicks(index,false);
-    }
-
   };
 
+  //method to set boolean values whether 'Add to Cart' button is clicked for each product
+  const handleButtonClicks = (index: number, isFromAdd: boolean) => {
+    setButtonClickList((prevButtonClicked) => {
+      const updatedButtonClicked = [...prevButtonClicked];
+      updatedButtonClicked[index] = isFromAdd;
+      return updatedButtonClicked;
+    });
+  };
 
   const clearCart = () => {
     setCartItems([]);
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, buttonClicks, buttonClicked}}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, handleButtonClicks, buttonClickList, error }}>
       {children}
     </CartContext.Provider>
   );
