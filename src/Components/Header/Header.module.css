@@ -6,15 +6,13 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     z-index: 10;
-  
     height: 75px;
-    /* position: fixed; */
+    width: 100%;
     top: 0px;
     right: 0px;
     left: 0px;
     padding: 0px 30px;
     background: linear-gradient(to right, #f5e388, #f5ce69, #faba4b, #fcaf29);
-    /* background-color: rgb(255, 255, 255); */
     position: relative;
     position: sticky;
 }

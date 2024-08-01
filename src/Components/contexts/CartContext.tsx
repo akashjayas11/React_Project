@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface Product {
   id: number;
@@ -12,58 +12,75 @@ interface Product {
 export interface CartItem extends Product {
   quantity: number;
 }
+
 type Props = {
-children:ReactNode
-}
+  children: ReactNode;
+};
 
-interface CartContextType {
+type CartContextType = {
   cartItems: CartItem[];
-  addToCart: (item: Product) => void;
-  removeFromCart: (item: Product) => void;
+  addToCart: (item: Product, index: number) => void;
+  removeFromCart: (index: number, item: Product) => void;
   clearCart: () => void;
-}
+  buttonClicks: (index: number, isFromAdd: boolean) => void;
+  buttonClicked: boolean[];
+  error: string | null;
+};
 
-const CartContext = createContext<CartContextType>({
-  cartItems: [],
-  addToCart: () => {},
-  removeFromCart: () => {},
-  clearCart: () => {}
-});
+const CartContext = createContext<CartContextType>({} as CartContextType);
 
 export const useCart = () => useContext(CartContext);
 
-export const CartProvider = ({ children }:Props) => {
-
+export const CartProvider = ({ children }: Props) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [buttonClicked, setButtonClicked] = useState<boolean[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const addToCart = (item: Product) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+  const addToCart = (item: Product, index: number) => {
+    try {
+      setCartItems((prevCartItems) => {
+        const existingItem = prevCartItems.find((cartItem) => cartItem.id === item.id);
 
-    if (existingItem) {
-      setCartItems(
-        cartItems.map((cartItem) =>
-          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+        if (existingItem) {
+          return prevCartItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+          );
+        } else {
+          return [...prevCartItems, { ...item, quantity: 1 }];
+        }
+      });
+    } catch (e) {
+      setError('Error adding item to cart.');
     }
   };
 
-  // const removeFromCart = (itemId: number) => {
-  //   const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-  //   setCartItems(updatedCartItems);
-  // };
-  const removeFromCart = (item: Product) => {
-    const quantity1 = cartItems.find((cartItem) => (cartItem.id === item.id) &&(cartItem.quantity>1) );
-    if(quantity1){
-    setCartItems( cartItems.map((cartItem) =>
-      cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem))
+
+  const removeFromCart = (index: number, item: Product) => {
+    try {
+      setCartItems((prevCartItems) => {
+        const existingItem = prevCartItems.find((cartItem) => cartItem.id === item.id);
+
+        if (existingItem && existingItem.quantity > 1) {
+          return prevCartItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+          );
+        } else {
+          return prevCartItems.filter((cartItem) => cartItem.id !== item.id);
+        }
+      });
+
+      buttonClicks(index, false);
+    } catch (e) {
+      setError('Error removing item from cart.');
     }
-    else{
-      const updatedCartItems = cartItems.filter((cartitem) => cartitem.id !== item.id );
-     setCartItems(updatedCartItems);
-    }
+  };
+
+  const buttonClicks = (index: number, isFromAdd: boolean) => {
+    setButtonClicked((prevButtonClicked) => {
+      const updatedButtonClicked = [...prevButtonClicked];
+      updatedButtonClicked[index] = isFromAdd;
+      return updatedButtonClicked;
+    });
   };
 
   const clearCart = () => {
@@ -71,7 +88,7 @@ export const CartProvider = ({ children }:Props) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, buttonClicks, buttonClicked, error }}>
       {children}
     </CartContext.Provider>
   );
