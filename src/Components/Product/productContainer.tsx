@@ -29,6 +29,7 @@ const ProductContainer = () => {
           throw new Error('Failed to fetch data');
         }
         const data = await response.json();
+        console.log(data)
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products', error);
@@ -41,28 +42,8 @@ const ProductContainer = () => {
   const handleAddToCart = (product: ProductProps, index:number) => {
     addToCart(product,index);
     buttonClicks(index, true);
-    
-    // const updateButtonsClick = buttonClicked
-    // updateButtonsClick[index] = true
-    
-    // setButtonClicked(updateButtonsClick);
-    
-    // const cartItem = cartItems.find((item)=>
-    //   item.id===product.id)
-
-    // const quant = quantity
-    // quant[index] = cartItem==undefined ? 1: cartItem.quantity
-
-    // setQuantity(quant)
 
   }
-
-  // const findQuantity = (id:number)=>{
-   
-  //   cartItems.find()
-
-
-  // }
 
   return (
     <div>

@@ -26,7 +26,7 @@ type CartContextType = {
   buttonClicked: boolean[];
 }
 
-const CartContext = createContext({} as CartContextType);
+export const CartContext = createContext({} as CartContextType);
 
 export const useCart = () => useContext(CartContext);
 
