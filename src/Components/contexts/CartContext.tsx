@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 interface Product {
   id: number;
@@ -14,95 +14,80 @@ export interface CartItem extends Product {
 }
 
 type Props = {
-children:ReactNode
-}
+  children: ReactNode;
+};
 
 type CartContextType = {
   cartItems: CartItem[];
-  addToCart: (item: Product, index:number) => void;
-  removeFromCart: (index:number, item: Product) => void;
+  addToCart: (item: Product, index: number) => void;
+  removeFromCart: (index: number, item: Product) => void;
   clearCart: () => void;
-  buttonClicks: (index: number, isfromAdd:boolean ) => void;
+  buttonClicks: (index: number, isFromAdd: boolean) => void;
   buttonClicked: boolean[];
-}
+  error: string | null;
+};
 
-const CartContext = createContext({} as CartContextType);
+const CartContext = createContext<CartContextType>({} as CartContextType);
 
 export const useCart = () => useContext(CartContext);
 
-export const CartProvider = ({ children }:Props) => {
-
+export const CartProvider = ({ children }: Props) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const a = new Array(20);
-  const [buttonClicked, setButtonClicked] = useState(a.map(()=> false));
+  const [buttonClicked, setButtonClicked] = useState<boolean[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const addToCart = (item: Product, index:number) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+  const addToCart = (item: Product, index: number) => {
+    try {
+      setCartItems((prevCartItems) => {
+        const existingItem = prevCartItems.find((cartItem) => cartItem.id === item.id);
 
-    if (existingItem) {
-      setCartItems(
-        cartItems.map((cartItem) =>
-          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        )
-      );
+        if (existingItem) {
+          return prevCartItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+          );
+        } else {
+          return [...prevCartItems, { ...item, quantity: 1 }];
+        }
+      });
+    } catch (e) {
+      setError('Error adding item to cart.');
     }
-    
-    else {
-      setCartItems([...cartItems, { ...item, quantity: 1 }]);
-    }
-    
   };
 
-  // const removeFromCart = (itemId: number) => {
-  //   const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-  //   setCartItems(updatedCartItems);
-  // };
+  const removeFromCart = (index: number, item: Product) => {
+    try {
+      setCartItems((prevCartItems) => {
+        const existingItem = prevCartItems.find((cartItem) => cartItem.id === item.id);
 
-  const buttonClicks = (index: number, isfromAdd: boolean)=>{
-    
-    // const Item = cartItems.find((item)=> item.id==product.id)
-        const updateButtonsClick = buttonClicked
-
-        if(isfromAdd)
-        {
-        updateButtonsClick[index] = true
-        
-        setButtonClicked(updateButtonsClick);
+        if (existingItem && existingItem.quantity > 1) {
+          return prevCartItems.map((cartItem) =>
+            cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+          );
+        } else {
+          return prevCartItems.filter((cartItem) => cartItem.id !== item.id);
         }
+      });
 
-        else
-        {
-          updateButtonsClick[index] = false
-        
-          setButtonClicked(updateButtonsClick);
-        }
-
+      buttonClicks(index, false);
+    } catch (e) {
+      setError('Error removing item from cart.');
     }
-
-  const removeFromCart = (index:number, item: Product) => {
-
-    const quantity1 = cartItems.find((cartItem) => (cartItem.id === item.id) &&(cartItem.quantity>1) );
-
-    if(quantity1){
-    setCartItems( cartItems.map((cartItem) =>
-      cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem))
-    }
-
-    else{
-    const updatedCartItems = cartItems.filter((cartitem) => cartitem.id !== item.id );
-     setCartItems(updatedCartItems);
-     buttonClicks(index,false);
-    }
-
   };
 
+  const buttonClicks = (index: number, isFromAdd: boolean) => {
+    setButtonClicked((prevButtonClicked) => {
+      const updatedButtonClicked = [...prevButtonClicked];
+      updatedButtonClicked[index] = isFromAdd;
+      return updatedButtonClicked;
+    });
+  };
 
   const clearCart = () => {
     setCartItems([]);
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, buttonClicks, buttonClicked}}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, buttonClicks, buttonClicked, error }}>
       {children}
     </CartContext.Provider>
   );

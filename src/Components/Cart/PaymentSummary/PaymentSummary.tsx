@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCart } from '../../contexts/CartContext';
-import { CartItem } from '../../contexts/CartContext'; 
+import { CartItem } from '../../contexts/CartContext';
 const PaymentSummary = () => {
   const { cartItems } = useCart();
   const [totalAmount, setTotalAmount] = useState<number>(0);
@@ -20,12 +20,8 @@ const PaymentSummary = () => {
   return (
     <>
       <h1>PaymentSummary</h1>
-      
-
-
-      
       <ul>
-          {cartItems.map((item: CartItem) => (
+        {cartItems.map((item: CartItem) => (
           <li key={item.id}>
             {item.title} - <b>${item.price}</b><br />
             Quantity: <b>{item.quantity}</b>
