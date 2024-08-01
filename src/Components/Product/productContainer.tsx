@@ -18,7 +18,6 @@ const ProductContainer = () => {
 
   //state variable for storing ProductList
   const [products, setProducts] = useState<ProductProps[]>([]);
-
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
@@ -48,7 +47,9 @@ const ProductContainer = () => {
         else {
           setProducts(prevProducts => [...prevProducts, ...data]);
         }
-      } catch (error) {
+      } 
+      
+      catch (error) {
         setError('There was a problem fetching the products. Please try again later.');
       }
     };
@@ -70,7 +71,7 @@ const ProductContainer = () => {
     if (hasMore) {
       setTimeout(() => {
         setPage(prevPage => prevPage + 1);
-      }, 1000);
+      }, 2000);
     }
   };
 
