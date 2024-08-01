@@ -1,6 +1,6 @@
 import './productContainer.css';
 import React, { useState, useEffect } from 'react';
-
+import banner from '../../assets/banner.jpg.jpg';
 import { useCart } from '../contexts/CartContext';
 
 interface ProductProps {
@@ -47,7 +47,10 @@ const ProductContainer = () => {
   }
 
   return (
-    <div className="container">
+    <div>
+      <img src={banner} alt='banner image' style={{width:"100%", height:"350px"}}/>
+   <h1 style={{textAlign:"center", paddingTop:"30px"}}>Products on sale!!</h1>
+    <div className="container">   
       <div className="row">
         {products.map((product, index) => (
           <div className="col-3 gy-3" key={product.id}>
@@ -63,6 +66,7 @@ const ProductContainer = () => {
                 <p className="card-text">Price <b>${product.price}</b></p>
 
                 <button style={{ display: buttonClicked[index] ? 'none' : 'block'}} className="btn btn-primary" id="button-card" onClick={() => handleAddToCart(product, index)}>
+
                   Add to cart
                 </button>
                 
@@ -88,6 +92,7 @@ const ProductContainer = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

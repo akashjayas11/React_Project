@@ -20,8 +20,12 @@ const PaymentSummary = () => {
   return (
     <>
       <h1>PaymentSummary</h1>
+      
+
+
+      
       <ul>
-        {cartItems.map((item: CartItem) => (
+          {cartItems.map((item: CartItem) => (
           <li key={item.id}>
             {item.title} - <b>${item.price}</b><br />
             Quantity: <b>{item.quantity}</b>

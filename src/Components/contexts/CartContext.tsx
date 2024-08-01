@@ -54,7 +54,6 @@ export const CartProvider = ({ children }:Props) => {
   //   const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
   //   setCartItems(updatedCartItems);
   // };
-
   const removeFromCart = (item: Product) => {
     const quantity1 = cartItems.find((cartItem) => (cartItem.id === item.id) &&(cartItem.quantity>1) );
     if(quantity1){
