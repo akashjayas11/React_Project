@@ -54,6 +54,7 @@ export const CartProvider = ({ children }: Props) => {
     }
   };
 
+
   const removeFromCart = (index: number, item: Product) => {
     try {
       setCartItems((prevCartItems) => {
