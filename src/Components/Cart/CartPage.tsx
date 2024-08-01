@@ -45,7 +45,7 @@ const CartPage = () => {
                     className='btn btn-sm btn-primary me-2' onClick={() => addToCart(item)}>+</button>
                     
                   <button
-                    className='btn btn-sm btn-danger'onClick={() => removeFromCart(item)}>-</button>
+                    className='btn btn-sm btn-danger' style={{paddingLeft:"10px", paddingRight:"10px"}} onClick={() => removeFromCart(item)}>-</button>
                 </td>
                 <td>{item.quantity}</td>
                 <td>${formattedTotal}</td>
@@ -53,7 +53,7 @@ const CartPage = () => {
             );
           })}
           <tr className='table-warning'>
-            <th colSpan="6" className="text-right">Total cost:</th>
+            <th colSpan = "6"  className="text-right">Total cost:</th>
             <th>${calculation().toFixed(2)}</th>
           </tr>
         </tbody>

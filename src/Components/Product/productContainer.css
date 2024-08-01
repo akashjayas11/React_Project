@@ -28,44 +28,37 @@ width: 170px;
 background-color: dimgrey;
 padding-top: 10px;s
 } */
- *{
+*{
 
-    box-sizing: border-box;
- }
- .container{
-    display: flex;
-<<<<<<< HEAD
-    flex-direction: column;
-    margin-top: 7%;
-=======
-    margin-top: 3%;
->>>>>>> pratiba_3
- }
- .row{
-    margin: auto;
- }
- #card1{
-    background-color: rgb(248, 238, 208) !important;
-    margin-top: 8% !important;
- }
- #button-card{
-    /* float: inline-end !important;
-    align-items: end !important;
-    margin-bottom: 0% !important; */
-    position: absolute !important;
-    right: 30% !important;
-    bottom: 10% !important;
- }
+   box-sizing: border-box;
+}
+.container{
+   display: flex;
+   flex-direction: column;
+   margin-top: 7%;
+}
+.row{
+   margin: auto;
+}
+#card1{
+   background-color: beige !important;
+   margin-top: 8% !important;
+}
+#button-card{
+   /* float: inline-end !important;
+   align-items: end !important;
+   margin-bottom: 0% !important; */
+   position: absolute !important;
+   right: 30% !important;
+   bottom: 10% !important;
+}
 
- #button-card-quant{
-   /* position: absolute !important; */
-   /* right: 30% !important; */
-   /* bottom: 50% !important; */
- }
+#button-card-quant{
+  /* position: absolute !important; */
+  /* right: 30% !important; */
+  /* bottom: 50% !important; */
+}
 
- .card-img-top{
-    margin: 10px;
- }
- body{
-
- }
+.card-img-top{
+   margin: 10px;
+}
