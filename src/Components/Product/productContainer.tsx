@@ -1,9 +1,9 @@
 import './productContainer.css';
 import React, { useState, useEffect } from 'react';
 import banner from '../../assets/banner.jpg.jpg';
-import { useCart } from '../contexts/CartContext';
+import { useCart } from '../../contexts/CartContext';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import ErrorPage from '../Error/errorPage';
+import ErrorPage from '../../Pages/Error/errorPage';
 
 interface ProductProps {
   id: number;
@@ -16,7 +16,6 @@ interface ProductProps {
 
 const ProductContainer = () => {
   const [products, setProducts] = useState<ProductProps[]>([]);
-  // const [buttonClicked, setButtonClicked] = useState<boolean[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const { addToCart, cartItems, removeFromCart, buttonClicks, buttonClicked } = useCart();
@@ -33,12 +32,10 @@ const ProductContainer = () => {
           return;
         }
         const data = await response.json();
-        // To check if there are no products to load
         if (data.length === 0) {
           setHasMore(false);
         } else {
           setProducts(prevProducts => [...prevProducts, ...data]);
-          // setButtonClicked(prev => [...prev, ...data.map(() => false)]);
         }
       } catch (error) {
         setError('There was a problem fetching the products. Please try again later.');
@@ -51,8 +48,6 @@ const ProductContainer = () => {
   const handleImageError = () => {
     setImageError(true);
   };
-
-  // Adding the products to cart
   const handleAddToCart = (product: ProductProps, index: number) => {
     addToCart(product, index);
     buttonClicks(index, true);
