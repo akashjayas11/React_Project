@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import ProductContainer from '../src/Components/Product/productContainer';
-import ErrorPage from '../src/Components/Error/errorPage'; // Import ErrorPage to verify its display
+import ProductContainer from '../src/Pages/HomePage/HomePage'
 import React from 'react';
 import '@testing-library/jest-dom';
 

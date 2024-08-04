@@ -15,15 +15,17 @@ function Header() {
 
   return (
     <div className={styles.header_Container}>
+
       <Link to="/" >
       <img src={img} alt="Logo" />
       </Link>
+
       <span className={styles.cartIcon} onClick={toggleCart}>
-      <Link to="/cart" className={styles.counter}>
-        <i className="bi bi-cart4"  id='basket'/>
-        <sup>{cartItems.length}</sup>
-        </Link>
-        </span>
+        <Link to="/cart" className={styles.counter}>
+          <i className="bi bi-cart4"  id='basket'/>
+          <sup>{cartItems.length}</sup>
+          </Link>
+      </span>
 
     </div>
   );
