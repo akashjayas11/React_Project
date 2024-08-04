@@ -2,7 +2,7 @@
 import  { useState } from 'react';
 import styles from './Header.module.css';
 import img from '../../assets/logo.png';
-import { useCart } from '../contexts/CartContext';
+import { useCart } from '../../contexts/CartContext';
 import { Link } from 'react-router-dom';
 
 function Header() {

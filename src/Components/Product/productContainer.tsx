@@ -1,9 +1,9 @@
 import './productContainer.css';
 import React, { useState, useEffect } from 'react';
 import banner from '../../assets/banner.jpg.jpg';
-import { useCart } from '../contexts/CartContext';
+import { useCart } from '../../contexts/CartContext';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import ErrorPage from '../Error/errorPage';
+import ErrorPage from '../../Pages/Error/errorPage';
 
 interface ProductProps {
   id: number;
@@ -60,8 +60,6 @@ const ProductContainer = () => {
   const handleImageError = () => {
     setImageError(true);
   };
-
-  // Adding the products to cart
   const handleAddToCart = (product: ProductProps, index: number) => {
     addToCart(product, index);
     handleButtonClicks(index, true);
