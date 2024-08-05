@@ -1,10 +1,10 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { describe, it, expect, vi } from 'vitest';
-import ProductContainer from '../src/Components/Product/productContainer';
+import ProductContainer from '../src/Pages/HomePage/HomePage'
 import React from 'react';
 
-// Mock the CartContext
+// Mocking the CartContext
 vi.mock('../src/Components/contexts/CartContext', () => ({
   useCart: () => ({
     addToCart: vi.fn(),
@@ -15,12 +15,11 @@ vi.mock('../src/Components/contexts/CartContext', () => ({
   }),
 }));
 
-// Mock the fetch function to return a paginated list
+// Mocking the fetch function to return a paginated list
 vi.stubGlobal('fetch', (url: string) => {
   const pageMatch = url.match(/page=(\d+)/);
   const page = pageMatch ? parseInt(pageMatch[1], 10) : 1;
 
-  // Simulate pagination: return a different set of products based on the page number
   const products = [
     {
       id: 1,
@@ -30,7 +29,7 @@ vi.stubGlobal('fetch', (url: string) => {
       category: 'men',
       image: 'https://fakestoreapi.com/img/1.jpg',
     },
-    // Add more mock products here if needed
+    
   ];
 
   // Simulate the API response
@@ -83,7 +82,6 @@ describe('ProductContainer', () => {
 
     render(<ProductContainer />);
 
-    // Simulate image load failure
     fireEvent.error(screen.getByAltText('banner'));
 
     await waitFor(() => {

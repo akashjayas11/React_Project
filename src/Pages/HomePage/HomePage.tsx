@@ -1,11 +1,12 @@
-import './productContainer.css';
+import './HomePage.css';
 import React, { useState, useEffect } from 'react';
 import banner from '../../assets/banner.jpg.jpg';
-import { useCart } from '../contexts/CartContext';
+import { useCart } from '../../contexts/CartContext';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import ErrorPage from '../Error/errorPage';
+import ErrorPage from '../../Pages/Error/errorPage';
+import ProductCard from '../../Components/ProductCard/ProductCard';
 
-interface ProductProps {
+export interface ProductProps {
   id: number;
   title: string;
   price: number;
@@ -21,7 +22,7 @@ const ProductContainer = () => {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
-  const { addToCart, cartItems, removeFromCart, buttonClickList, handleButtonClicks } = useCart();
+  const { addToCart, buttonClickList, handleButtonClicks } = useCart();
 
   //state variable to check Products are fetched or not and display error page
   const [error, setError] = useState<string | null>(null);
@@ -60,8 +61,6 @@ const ProductContainer = () => {
   const handleImageError = () => {
     setImageError(true);
   };
-
-  // Adding the products to cart
   const handleAddToCart = (product: ProductProps, index: number) => {
     addToCart(product, index);
     handleButtonClicks(index, true);
@@ -98,6 +97,7 @@ const ProductContainer = () => {
             className='banner-img'
           />
           <h1 className='heading'>Products on sale!!</h1>
+
           <InfiniteScroll
             dataLength={products.length}
             next={fetchMoreData}
@@ -106,60 +106,20 @@ const ProductContainer = () => {
             endMessage={<p>You are all set!</p>}
           >
             <div className="container">
+              
               <div className="row">
+                
                 {products.length > 0 ? products.map((product, index) => (
-                  <div className="col-3 gy-3" key={product.id}>
-                    <div className="card shadow card-custom">
-                      <img
-                        src={product.image}
-                        className="card-img-top card-img-custom"
-                        alt={product.title}
-                      />
-                      <div className="card-body card-body-custom">
-                        <h6 className="card-title">{product.title}</h6>
-                        <p className="card-text">Price <b>${product.price}</b></p>
 
-                        <button
-                          className={`btn btn-primary button-card ${buttonClickList[index] ? 'hidden' : ''}`}
-                          onClick={() => handleAddToCart(product, index)}
-                        >
-                          Add to cart
-                        </button>
+                  <ProductCard product={product} index={index} handleAddToCart={handleAddToCart} buttonClickList={buttonClickList}/>
 
-                        <div
-                          className={`container text-center container-cust ${buttonClickList[index] ? '' : 'hidden'}`}
-                        >
-                          <div className="row row-cols-auto">
-                            <div className="col">
-                              <button
-                                type="button"
-                                onClick={() => removeFromCart(index, product)}
-                                className="btn btn-outline-danger btn-custom"
-                              >
-                                -
-                              </button>
-                            </div>
-                            <div className="col">
-                              {cartItems.find(item => item.id === product.id && item.quantity > 0)?.quantity}
-                            </div>
-                            <div className="col">
-                              <button
-                                type="button"
-                                onClick={() => addToCart(product, index)}
-                                className="btn btn-outline-success btn-custom"
-                              >
-                                +
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 )) : (
                   <ErrorPage message="No Products Available, check again" />
                 )}
+                
               </div>
+
+
             </div>
           </InfiniteScroll>
         </div>

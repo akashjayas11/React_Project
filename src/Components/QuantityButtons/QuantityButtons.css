@@ -1,0 +1,23 @@
+.btn-custom {
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .75rem;
+  }
+  
+.btn-custom-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem; 
+  }
+ 
+  .container-cust {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+ 
+  .container-cust.hidden {
+    display: none;
+  }

@@ -1,0 +1,10 @@
+.button-card {
+    display: block;
+    margin: 10px 0; 
+    width: 100%;
+    box-sizing: border-box;
+  }
+ 
+  .button-card.hidden {
+    display: none;
+  }

@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
-interface Product {
+export interface Product {
   id: number;
   title: string;
   price: number;
@@ -74,11 +74,10 @@ export const CartProvider = ({ children }: Props) => {
             cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
           );
         } else {
+          handleButtonClicks(index, false);
           return prevCartItems.filter((cartItem) => cartItem.id !== item.id);
         }
       });
-
-      handleButtonClicks(index, false);
     } 
     
     catch (e) {
