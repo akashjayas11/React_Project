@@ -1,6 +1,6 @@
 import React from "react";
 import { useCart } from "../../contexts/CartContext";
-import ErrorPage from "../../Pages/Error/errorPage";
+import ErrorPage from "../Error/errorPage";
 import CartItem from "../../Components/Cart/CartItem";
 import CartTotal from "../../Components/Cart/TotalPayment";
 import "../../Components/Cart/CartPage.css";
